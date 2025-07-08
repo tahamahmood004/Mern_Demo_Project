@@ -1,5 +1,6 @@
 //controller handles logic in form of functions
 const User = require("../models/auth-model");
+const bcrypt = require("bcryptjs");
 const home = async (req, res) => {
   res.status(200).send("Welcome to Homepage using Controller");
 };
@@ -17,12 +18,16 @@ const register = async (req, res) => {
       return res.status(409).json({ message: "Email is already exists!" });
     }
 
-    //insert data if user email is not exist
     else {
+      //hashing password
+      const saltRound = 10;
+      const hash_pass = await bcrypt.hash(password, saltRound);
+
+      //insert data if user email is not exist
       const userCreated = await User.create({
         username,
         email,
-        password,
+        password: hash_pass,
         phone,
       });
       res.status(201).json({ message: "User registered successfully!\n", userCreated });
