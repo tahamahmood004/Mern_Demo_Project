@@ -1,4 +1,5 @@
 //controller handles logic in form of functions
+const User = require("../models/auth-model");
 const home = async (req, res) => {
   res.status(200).send("Welcome to Homepage using Controller");
 };
