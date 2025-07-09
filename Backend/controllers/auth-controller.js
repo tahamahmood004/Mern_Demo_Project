@@ -37,6 +37,21 @@ const register = async (req, res) => {
   }
 };
 const login = async (req, res) => {
-  res.status(200).send("Welcome to Login page using Controller");
+try {
+  const { email, password } = req.body;
+  const userExist = await User.findOne({ email: email });
+  if (!userExist) {
+    res.status(404).send("No user found");
+  }
+  //comparing password with hashed password in database
+  const user_pass = await bcrypt.compare(password, userExist.password);
+  if (user_pass) {
+    res.status(200).json({ message: "Login Successfully!" });
+  } else {
+    res.status(401).json({ message: "password invalid" });
+  }
+} catch (error) {
+  console.error(error);
+}
 };
 module.exports = { home, register, login };
