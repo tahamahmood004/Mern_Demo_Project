@@ -46,7 +46,13 @@ try {
   //comparing password with hashed password in database
   const user_pass = await bcrypt.compare(password, userExist.password);
   if (user_pass) {
-    res.status(200).json({ message: "Login Successfully!" });
+    //generate json web token
+    const token = await userExist.generateToken();
+    res.status(200).json({ message: "Login Successfully!",
+      token:token,
+      userId: userExist._id.toString()
+    });
+
   } else {
     res.status(401).json({ message: "password invalid" });
   }
