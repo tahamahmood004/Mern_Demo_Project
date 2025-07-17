@@ -6,11 +6,12 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Services from './pages/Services'
 import Contact from './pages/Contact'
+import Navvbar from './pages/Components/Navvbar'
 function App() {
 
   return (
-    <>
     <BrowserRouter>
+      <Navvbar/>
     <Routes>
       <Route path='/' element={<Home/>} />
       <Route path='/about' element={<About/>} />
@@ -20,8 +21,6 @@ function App() {
       <Route path='/contact' element={<Contact/>} />
     </Routes>
     </BrowserRouter>
-
-    </>
   )
 }
 
