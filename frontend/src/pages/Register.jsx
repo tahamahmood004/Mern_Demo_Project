@@ -1,66 +1,80 @@
-import React, { useState } from 'react'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 function Register() {
-    const[user,setUser] = useState({
-      username:"",
-      email:"",
-      password:"",
-      phone:""
-    })
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+    phone: "",
+  });
 
-    const handleInput = (e) => {
-console.log(e);
+  const handleInput = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+    // console.log(user);
+    
+  };
 
-    }
+  const handleSubmit = (e) =>{
+    e.preventDefault()
+    console.log(user);
+    
+  }
   return (
     <div>
       <h1>Welcome to Register Page</h1>
 
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form 
+      // method="POST"
+       onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
-          
-          <Form.Control 
-          type="text" 
-          placeholder="e.g: taha123" 
-          name='username'
-          value={user.username}
-          onChange={handleInput}
+
+          <Form.Control
+            type="text"
+            placeholder="e.g: taha123"
+            name="username"
+            value={user.username}
+            onChange={handleInput}
           />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control 
-          type="email" 
-          placeholder="e.g: taha@gmail.com" 
-          name='email'
-          value={user.email}
-          onChange={handleInput}
+          <Form.Control
+            type="email"
+            placeholder="e.g: taha@gmail.com"
+            name="email"
+            value={user.email}
+            onChange={handleInput}
           />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control 
-          type="password" 
-          placeholder="e.g: Abc12@3!" 
-          name='password'
-          value={user.password}
-          onChange={handleInput}
+          <Form.Control
+            type="password"
+            placeholder="e.g: Abc12@3!"
+            name="password"
+            value={user.password}
+            onChange={handleInput}
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicPhone">
           <Form.Label>Phone</Form.Label>
-          <Form.Control 
-          type="number" 
-          placeholder="e.g: +92 300 0000000" 
-          name='phone'
-          value={user.phone}
-          onChange={handleInput}
+          <Form.Control
+            type="number"
+            placeholder="e.g: +92 300 0000000"
+            name="phone"
+            value={user.phone}
+            onChange={handleInput}
           />
         </Form.Group>
 
@@ -76,4 +90,4 @@ console.log(e);
   );
 }
 
-export default Register
+export default Register;
