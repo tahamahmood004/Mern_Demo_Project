@@ -18,14 +18,28 @@ function Register() {
       [name]: value,
     });
     // console.log(user);
-    
   };
 
-  const handleSubmit = (e) =>{
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     console.log(user);
-    
-  }
+
+    const response = await fetch("http://localhost:8000/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    });
+    console.log("response data", response);
+    const resData = await response.json();  
+    alert(resData.message);      
+    // if (response.ok) {
+    //   const resData = await response.json();
+    //   alert(resData.message);      
+    // } else {
+    //   const resData = await response.json();
+    //   alert(resData.message);
+    // }
+  };
   return (
     <div>
       <h1>Welcome to Register Page</h1>
