@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import {useNavigate} from 'react-router-dom'
 
 function Register() {
   const [user, setUser] = useState({
@@ -20,6 +21,8 @@ function Register() {
     // console.log(user);
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(user);
@@ -33,6 +36,8 @@ function Register() {
     const resData = await response.json();
     if (response.ok) {
       alert(resData.message);
+      navigate("/login")
+      
     } else {
       // const resData = await response.json();
       alert(resData.message);

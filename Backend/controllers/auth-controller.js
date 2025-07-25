@@ -11,6 +11,10 @@ const register = async (req, res) => {
 
     // destructuring data from req.body
     const { username, email, password, phone } = req.body;
+    // if user failing to fill in all required fields
+    if (!username || !email || !password || !phone) {
+      return res.status(400).json({ message: "All fields are required!" });
+    }
 
     //find if user email i already exist
     const userExist = await User.findOne({ email: email });
@@ -39,9 +43,12 @@ const register = async (req, res) => {
 const login = async (req, res) => {
 try {
   const { email, password } = req.body;
+  if (!email || !password) {
+      return res.status(400).json({ message: "All fields are required!" });
+    }
   const userExist = await User.findOne({ email: email });
   if (!userExist) {
-    res.status(404).send("No user found");
+    res.status(404).send({message: "No user found"});
   }
   //comparing password with hashed password in database
   const user_pass = await bcrypt.compare(password, userExist.password);
@@ -57,7 +64,8 @@ try {
     res.status(401).json({ message: "password invalid" });
   }
 } catch (error) {
-  console.error(error);
+  console.error(error.message);
+  return res.status(500).json({message: "Server Error!!!"})
 }
 };
 module.exports = { home, register, login };
