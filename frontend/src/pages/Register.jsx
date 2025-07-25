@@ -30,23 +30,19 @@ function Register() {
       body: JSON.stringify(user),
     });
     console.log("response data", response);
-    const resData = await response.json();  
-    alert(resData.message);      
-    // if (response.ok) {
-    //   const resData = await response.json();
-    //   alert(resData.message);      
-    // } else {
-    //   const resData = await response.json();
-    //   alert(resData.message);
-    // }
+    const resData = await response.json();
+    if (response.ok) {
+      alert(resData.message);
+    } else {
+      // const resData = await response.json();
+      alert(resData.message);
+    }
   };
   return (
     <div>
       <h1>Welcome to Register Page</h1>
 
-      <Form 
-      // method="POST"
-       onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
 
@@ -90,10 +86,6 @@ function Register() {
             value={user.phone}
             onChange={handleInput}
           />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
         </Form.Group>
 
         <Button variant="primary" type="submit">
